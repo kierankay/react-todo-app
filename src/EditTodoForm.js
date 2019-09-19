@@ -1,10 +1,10 @@
 import React from 'react';
 
-class NewTodoForm extends React.Component {
+class EditTodoForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      todo: ""
+      text: props.text
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,19 +18,20 @@ class NewTodoForm extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    this.props.create(this.state.todo);
-    this.setState({todo: ""});
+    this.props.edit(this.props.id, this.state.text)
+    this.props.returnToFalse();
+    this.setState({text: ""});
   }
 
   render() {
     return (
-      <form onChange={this.handleChange} onSubmit={this.handleSubmit}>
-        <label htmlFor="todo">New Todo:</label>
-        <input id="todo" name="todo" value={this.state.todo} />
-        <button type="submit">Submit</button>
+      <form onChange={this.handleChange}>
+        <input name="text" id="text" value={this.state.text} />
+        <button type="submit" onClick={this.handleSubmit}>Submit</button>
       </form>
     )
   }
 }
 
-export default NewTodoForm;
+export default EditTodoForm;
+
